@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void C_Application_Firewall(char* in_buf){
+    for(char c = *in_buf++; c != '\x00'; c = *in_buf++) {
+        if(c=='A') {
+            printf("blocked!\n");
+            printf("IP has been reported\n");
+            exit(-1);
+        }
+    }
+}
+
+void AFtest() {
+    char buf[256] = {0};
+    printf("\nC Application Firewall Test - try a payload:\n");
+    gets(buf);
+    C_Application_Firewall(buf);
+    printf(buf);
+}
+
+int main(int argc, char* argv[]) {
+    while(1) {
+        AFtest();
+    }
+}
